@@ -1,5 +1,6 @@
 import expressions.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
@@ -174,5 +175,24 @@ public class Parser {
         return p;
     }
 
-
+    public static void main(String[] args)
+    {
+        if (args.length == 1) {
+            StringBuilder sb = new StringBuilder();
+            try {
+                try (BufferedReader br = new BufferedReader(new FileReader(args[0]))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line);
+                        sb.append(System.lineSeparator());
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+            for (AbstractExpression st : parse(sb.toString()))
+                System.out.println(st.pp());
+        }
+    }
 }
