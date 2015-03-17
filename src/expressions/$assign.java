@@ -1,8 +1,6 @@
 package expressions;
 
-/**
- * Created by Sam on 16/03/2015.
- */
+
 public class $assign implements AbstractExpression {
 
     private String name;

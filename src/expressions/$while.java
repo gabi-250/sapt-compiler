@@ -2,9 +2,6 @@ package expressions;
 
 import java.util.ArrayList;
 
-/**
- * Created by Sam on 16/03/2015.
- */
 public class $while implements AbstractExpression {
 
     private AbstractExpression cond;

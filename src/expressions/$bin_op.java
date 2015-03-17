@@ -1,8 +1,6 @@
 package expressions;
 
-/**
- * Created by Sam on 16/03/2015.
- */
+
 public class $bin_op implements AbstractExpression {
 
     private char op;
