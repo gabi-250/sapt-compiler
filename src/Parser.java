@@ -14,8 +14,8 @@ import java.util.regex.Pattern;
  */
 public class Parser {
 
-    private static Pattern patternIdentifier = Pattern.compile("[a-zA-Z_][a-zA-Z_0-9]*");
-    private static Pattern patternInteger = Pattern.compile("[0-9]+");
+    private static Pattern patternIdentifier = Pattern.compile("^[a-zA-Z_][a-zA-Z_0-9]*");
+    private static Pattern patternInteger = Pattern.compile("^[0-9]+");
     private static int i = -1;
     private static Character[] whitespaceCharacters = {' ', '\t', '\n', '\r'};
     private static Character[] opCharacters = {'+', '-', '<', '>'};
