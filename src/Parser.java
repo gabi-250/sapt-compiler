@@ -9,9 +9,6 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by Sam on 16/03/2015.
- */
 public class Parser {
 
     private static Pattern patternIdentifier = Pattern.compile("^[a-zA-Z_][a-zA-Z_0-9]*");
@@ -54,7 +51,7 @@ public class Parser {
     }
 
     private static AbstractExpression parse_stmt(String s) {
-        AbstractExpression r = null;
+        AbstractExpression r;
         r = parse_assign(s);
         if (r != null) {
             return r;
@@ -67,7 +64,7 @@ public class Parser {
         if (r != null) {
             return r;
         }
-        return r;
+        return null;
     }
 
     private static $assign parse_assign(String s) {
@@ -96,14 +93,12 @@ public class Parser {
             return null;
         }
         i++;
-
-        $assign a = new $assign(varn, r);
-        return a;
+        return new $assign(varn, r);
     }
 
     private static AbstractExpression parse_expr(String s) {
         Matcher mInt = patternInteger.matcher(s.substring(i));
-        AbstractExpression lhs = null;
+        AbstractExpression lhs;
         if (mInt.find()) {
             lhs = new $int(Integer.valueOf(mInt.group(0)));
             i += mInt.group(0).length();
@@ -126,12 +121,11 @@ public class Parser {
         if (rhs == null) {
             return null;
         }
-        $bin_op b = new $bin_op(op, lhs, rhs);
-        return b;
+        return new $bin_op(op, lhs, rhs);
     }
 
     private static $while parse_while(String s) {
-        $while w = null;
+        $while w;
         if (!s.substring(i).startsWith("while")) {
             return null;
         }
@@ -165,7 +159,7 @@ public class Parser {
     }
 
     private static $print parse_print(String s) {
-        $print p = null;
+        $print p;
         if (!s.substring(i).startsWith("print")) {
             return null;
         }
