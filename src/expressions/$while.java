@@ -1,14 +1,16 @@
 package expressions;
 
+import java.util.ArrayList;
+
 /**
  * Created by Sam on 16/03/2015.
  */
 public class $while implements AbstractExpression {
 
     private AbstractExpression cond;
-    private AbstractExpression[] body;
+    private ArrayList<AbstractExpression> body;
 
-    public $while(AbstractExpression cond, AbstractExpression[] body) {
+    public $while(AbstractExpression cond, ArrayList<AbstractExpression> body) {
         this.cond = cond;
         this.body = body;
     }
@@ -17,7 +19,7 @@ public class $while implements AbstractExpression {
         return cond;
     }
 
-    public AbstractExpression[] getBody() {
+    public ArrayList<AbstractExpression> getBody() {
         return body;
     }
 
