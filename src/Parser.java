@@ -1,9 +1,5 @@
 import expressions.*;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
@@ -178,32 +174,5 @@ public class Parser {
         return p;
     }
 
-    public static void main(String[] args) {
-        String s = null;
-        //read file > s
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(args[0]));
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-
-            while (line != null) {
-                sb.append(line);
-                sb.append("\n");
-                line = br.readLine();
-                s = sb.toString();
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found!");
-            System.exit(1);
-        } catch (IOException e) {
-            System.out.println("IO Exception!");
-            System.exit(1);
-        }
-        //parse
-        ArrayList<AbstractExpression> p = parse(s);
-        for (AbstractExpression e : p) {
-            System.out.println(e.pp());
-        }
-    }
 
 }
