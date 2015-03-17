@@ -5,17 +5,17 @@ package expressions;
  */
 public class $bin_op implements AbstractExpression {
 
-    private String op;
+    private char op;
     private AbstractExpression lhs;
     private AbstractExpression rhs;
 
-    public $bin_op(String op, AbstractExpression lhs, AbstractExpression rhs) {
+    public $bin_op(char op, AbstractExpression lhs, AbstractExpression rhs) {
         this.op = op;
         this.lhs = lhs;
         this.rhs = rhs;
     }
 
-    public String getOp() {
+    public char getOp() {
         return op;
     }
 
