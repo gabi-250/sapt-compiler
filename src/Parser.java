@@ -17,26 +17,27 @@ public class Parser {
     private static Pattern patternIdentifier = Pattern.compile("[a-zA-Z_][a-zA-Z_0-9]*");
     private static Pattern patternInteger = Pattern.compile("[0-9]+");
     private static int i = -1;
-    private static char[] whitespaceCharacters = {' ', '\t', '\n', '\r'};
-    private static char[] opCharacters = {'+', '-', '<', '>'};
+    private static Character[] whitespaceCharacters = {' ', '\t', '\n', '\r'};
+    private static Character[] opCharacters = {'+', '-', '<', '>'};
 
-    private static int skip_ws(String s) {
-
-        while (i < s.length()) {
-            if (Arrays.asList(whitespaceCharacters).contains(s.charAt(i))) {
+    private static void skip_ws(String s) {
+        String substr = s.substring(i);
+        int j = 0;
+        while (j < substr.length()) {
+            if (Arrays.asList(whitespaceCharacters).contains(substr.charAt(j))) {
                 i++;
+                j++;
             } else {
                 break;
             }
         }
-        return i;
     }
 
     public static ArrayList<AbstractExpression> parse(String s) {
         i = 0;
         ArrayList<AbstractExpression> p = new ArrayList<AbstractExpression>();
         while (i < s.length()) {
-            i = skip_ws(s);
+            skip_ws(s);
             if (i == s.length()) {
                 break;
             }
@@ -70,23 +71,23 @@ public class Parser {
     }
 
     private static $assign parse_assign(String s) {
-        Matcher m = patternIdentifier.matcher(s);
-        if (!m.matches()) {
+        Matcher m = patternIdentifier.matcher(s.substring(i));
+        if (!m.find()) {
             return null;
         }
         String varn = m.group(0); //variable name
         i += varn.length();
-        i = skip_ws(s);
+        skip_ws(s);
         if ((i < s.length()) && (s.charAt(i) != '=')) {
             return null;
         }
         i += 1;
-        i = skip_ws(s);
+        skip_ws(s);
         AbstractExpression r = parse_expr(s);
         if (r == null) {
             return null;
         }
-        i = skip_ws(s);
+        skip_ws(s);
         if ((i == s.length()) || (s.charAt(i) != ';')) {
             return null;
         }
@@ -97,26 +98,26 @@ public class Parser {
     }
 
     private static AbstractExpression parse_expr(String s) {
-        Matcher mInt = patternInteger.matcher(s);
+        Matcher mInt = patternInteger.matcher(s.substring(i));
         AbstractExpression lhs = null;
-        if (mInt.matches()) {
+        if (mInt.find()) {
             lhs = new $int(Integer.valueOf(mInt.group(0)));
             i += mInt.group(0).length();
         } else {
             Matcher mID = patternIdentifier.matcher(s.substring(i));
-            if (!mID.matches()) {
+            if (!mID.find()) {
                 return null;
             }
             lhs = new $var(mID.group(0));
             i += mID.group(0).length();
         }
-        i = skip_ws(s);
+        skip_ws(s);
         if ((i == s.length()) || (!Arrays.asList(opCharacters).contains(s.charAt(i)))) {
             return lhs;
         }
         char op = s.charAt(i);
         i++;
-        i = skip_ws(s);
+        skip_ws(s);
         AbstractExpression rhs = parse_expr(s);
         if (rhs == null) {
             return null;
@@ -131,19 +132,19 @@ public class Parser {
             return null;
         }
         i += 5; //len("while")
-        i = skip_ws(s);
+        skip_ws(s);
         AbstractExpression cond = parse_expr(s);
         if (cond == null) {
             return null;
         }
-        i = skip_ws(s);
+        skip_ws(s);
         if ((i == s.length()) || (s.charAt(i) != '{')) {
             return null;
         }
         i++;
         ArrayList<AbstractExpression> body = new ArrayList<AbstractExpression>();
         while (i < s.length()) {
-            i = skip_ws(s);
+            skip_ws(s);
             AbstractExpression r = parse_stmt(s);
             if (r != null) {
                 body.add(r);
@@ -165,12 +166,12 @@ public class Parser {
             return null;
         }
         i += 5; // len("print")
-        i = skip_ws(s);
+        skip_ws(s);
         AbstractExpression exp = parse_expr(s);
         if (exp == null) {
             return null;
         }
-        i = skip_ws(s);
+        skip_ws(s);
         if ((i == s.length()) || (s.charAt(i) != ';')) {
             return null;
         }
