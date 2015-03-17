@@ -79,6 +79,10 @@ public class Parser {
         i += varn.length();
         skip_ws(s);
         if ((i < s.length()) && (s.charAt(i) != '=')) {
+            //did we think 'while'/'print' was a variable name by mistake? if so, move counter back
+            if ((varn.equals("while")) || (varn.equals("print"))) {
+                i -= 6;
+            }
             return null;
         }
         i += 1;
