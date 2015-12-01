@@ -81,7 +81,7 @@ public class Parser {
             }
             return null;
         }
-        i += 1;
+        i++;
         skip_ws(s);
         AbstractExpression r = parse_expr(s);
         if (r == null) {
