@@ -196,7 +196,7 @@ public class Parser {
             for (AbstractExpression st : parse(sb.toString()))
                 System.out.println(st.pp());
         } else {
-            System.out.println("Too many arguments");
+            System.out.println("Wrong amount of arguments. Please pass one argument, the filename to parse.");
             System.exit(1);
         }
     }
