@@ -1,11 +1,11 @@
 package expressions;
 
 
-public class $print implements AbstractExpression {
+public class Print implements AbstractExpression {
 
     private AbstractExpression exp;
 
-    public $print(AbstractExpression exp) {
+    public Print(AbstractExpression exp) {
         this.exp = exp;
     }
 

@@ -1,11 +1,11 @@
 package expressions;
 
 
-public class $var implements AbstractExpression {
+public class Variable implements AbstractExpression {
 
     private String name;
 
-    public $var(String name) {
+    public Variable(String name) {
         this.name = name;
     }
 
