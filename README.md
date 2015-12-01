@@ -1,4 +1,4 @@
-# SAPT Compiler/Parser
+# APT Parser
 ##Grammar
 In BNF:
 ```
