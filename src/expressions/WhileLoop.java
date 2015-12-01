@@ -2,12 +2,12 @@ package expressions;
 
 import java.util.ArrayList;
 
-public class $while implements AbstractExpression {
+public class WhileLoop implements AbstractExpression {
 
     private AbstractExpression cond;
     private ArrayList<AbstractExpression> body;
 
-    public $while(AbstractExpression cond, ArrayList<AbstractExpression> body) {
+    public WhileLoop(AbstractExpression cond, ArrayList<AbstractExpression> body) {
         this.cond = cond;
         this.body = body;
     }

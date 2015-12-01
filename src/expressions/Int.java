@@ -1,11 +1,11 @@
 package expressions;
 
 
-public class $int implements AbstractExpression {
+public class Int implements AbstractExpression {
 
     private int val;
 
-    public $int(int val) {
+    public Int(int val) {
         this.val = val;
     }
 

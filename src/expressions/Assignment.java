@@ -1,12 +1,12 @@
 package expressions;
 
 
-public class $assign implements AbstractExpression {
+public class Assignment implements AbstractExpression {
 
     private String name;
     private AbstractExpression exp;
 
-    public $assign(String name, AbstractExpression exp) {
+    public Assignment(String name, AbstractExpression exp) {
         this.name = name;
         this.exp = exp;
     }

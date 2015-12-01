@@ -1,6 +1,8 @@
 import expressions.*;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
@@ -29,7 +31,7 @@ public class Parser {
 
     public static ArrayList<AbstractExpression> parse(String s) {
         i = 0;
-        ArrayList<AbstractExpression> p = new ArrayList<AbstractExpression>();
+        ArrayList<AbstractExpression> p = new ArrayList<>();
         while (i < s.length()) {
             skip_ws(s);
             if (i == s.length()) {
@@ -64,7 +66,7 @@ public class Parser {
         return null;
     }
 
-    private static $assign parse_assign(String s) {
+    private static Assignment parse_assign(String s) {
         Matcher m = patternIdentifier.matcher(s.substring(i));
         if (!m.find()) {
             return null;
@@ -90,21 +92,21 @@ public class Parser {
             return null;
         }
         i++;
-        return new $assign(varn, r);
+        return new Assignment(varn, r);
     }
 
     private static AbstractExpression parse_expr(String s) {
         Matcher mInt = patternInteger.matcher(s.substring(i));
         AbstractExpression lhs;
         if (mInt.find()) {
-            lhs = new $int(Integer.valueOf(mInt.group(0)));
+            lhs = new Int(Integer.valueOf(mInt.group(0)));
             i += mInt.group(0).length();
         } else {
             Matcher mID = patternIdentifier.matcher(s.substring(i));
             if (!mID.find()) {
                 return null;
             }
-            lhs = new $var(mID.group(0));
+            lhs = new Variable(mID.group(0));
             i += mID.group(0).length();
         }
         skip_ws(s);
@@ -118,11 +120,11 @@ public class Parser {
         if (rhs == null) {
             return null;
         }
-        return new $bin_op(op, lhs, rhs);
+        return new BinaryOP(op, lhs, rhs);
     }
 
-    private static $while parse_while(String s) {
-        $while w;
+    private static WhileLoop parse_while(String s) {
+        WhileLoop w;
         if (!s.substring(i).startsWith("while")) {
             return null;
         }
@@ -137,7 +139,7 @@ public class Parser {
             return null;
         }
         i++;
-        ArrayList<AbstractExpression> body = new ArrayList<AbstractExpression>();
+        ArrayList<AbstractExpression> body = new ArrayList<>();
         while (i < s.length()) {
             skip_ws(s);
             AbstractExpression r = parse_stmt(s);
@@ -151,12 +153,12 @@ public class Parser {
             break;
         }
         i++;
-        w = new $while(cond, body);
+        w = new WhileLoop(cond, body);
         return w;
     }
 
-    private static $print parse_print(String s) {
-        $print p;
+    private static Print parse_print(String s) {
+        Print p;
         if (!s.substring(i).startsWith("print")) {
             return null;
         }
@@ -171,7 +173,7 @@ public class Parser {
             return null;
         }
         i++;
-        p = new $print(exp);
+        p = new Print(exp);
         return p;
     }
 
