@@ -195,6 +195,9 @@ public class Parser {
             }
             for (AbstractExpression st : parse(sb.toString()))
                 System.out.println(st.pp());
+        } else {
+            System.out.println("Too many arguments");
+            System.exit(1);
         }
     }
 }
