@@ -31,7 +31,7 @@ public class Parser {
 
     public static ArrayList<AbstractExpression> parse(String s) {
         i = 0;
-        ArrayList<AbstractExpression> p = new ArrayList<>();
+        ArrayList<AbstractExpression> parseTree = new ArrayList<>();
         while (i < s.length()) {
             skip_ws(s);
             if (i == s.length()) {
@@ -39,14 +39,14 @@ public class Parser {
             }
             AbstractExpression r = parse_stmt(s);
             if (r != null) {
-                p.add(r);
+                parseTree.add(r);
                 continue;
             }
             System.out.println("Unknown syntax at position" + i);
             System.out.println(s.substring(i, s.indexOf('\n', i)));
             System.exit(1);
         }
-        return p;
+        return parseTree;
     }
 
     private static AbstractExpression parse_stmt(String s) {
