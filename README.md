@@ -1,4 +1,4 @@
-# SAPT Compiler/Parser
+# APT Parser
 ##Grammar
 In BNF:
 ```
@@ -24,12 +24,12 @@ All expressions implement the interface *`AbstractExpression`*; which has one me
 ###List of expressions
 | Expression class        | Name           | Example  | Attributes
 | ------------- |-------------| -----| ------------|
-| `$var`      | Variable | `i` | `name` |
-| `$int`     | Integer      |  42 | `val` |
-| `$assign` | Assignment      | `i = 5` or `i = j + 5` | `name`,`exp` |
-| `$bin_op` | Binary Operation      | `i < 5` | `lhs`,`op`,`rhs` |
-| `$while` | While loop      | `while i < 100 { i++ }` | `cond`,`body`|
-| `$print` | Print out      | `print i` | `exp` |
+| `Variable`      | Variable | `i` | `name` |
+| `Int`     | Integer      |  42 | `val` |
+| `Assignment` | Assignment      | `i = 5` or `i = j + 5` | `name`,`exp` |
+| `BinaryOP` | Binary Operation      | `i < 5` | `lhs`,`op`,`rhs` |
+| `WhileLoop` | While loop      | `while i < 100 { i++ }` | `cond`,`body`|
+| `Print` | Print out      | `print i` | `exp` |
 
 
 ##Example implementation
