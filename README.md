@@ -4,7 +4,7 @@ In BNF:
 ```
 Stmt ::= Assign | While | Print
 Assign ::= ID = Expr ;
-Expr ::= INT + Expr | INT - Expr | INT < Expr | INT > Expr | INT
+Expr ::= INT + Expr | INT - Expr | INT < Expr | INT > Expr | INT <= Expr | INT == EXPR | INT >= Expr | INT
 While ::= WHILE Expr { stmt* }
 Print ::= PRINT Expr ;
 ```

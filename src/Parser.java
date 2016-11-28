@@ -15,6 +15,7 @@ public class Parser {
     private static int i = -1;
     private static Character[] whitespaceCharacters = {' ', '\t', '\n', '\r'};
     private static Character[] opCharacters = {'+', '-', '<', '>'};
+    private static String[] opStrings = {"<=", "==", ">="};
 
     private static void skip_ws(String s) {
         String substr = s.substring(i);
@@ -110,15 +111,27 @@ public class Parser {
             i += mID.group(0).length();
         }
         skip_ws(s);
-        if ((i == s.length()) || (!Arrays.asList(opCharacters).contains(s.charAt(i)))) {
+        if ((i == s.length()) || (!Arrays.asList(opCharacters).contains(s.charAt(i)) &&
+            !Arrays.asList(opStrings).contains(s.substring(i, i + 2)))) {
             return lhs;
         }
-        char op = s.charAt(i);
-        i++;
+        char op = '\0';
+        String opString = null;
+        if (Arrays.asList(opStrings).contains(s.substring(i, i + 2))) {
+            opString = s.substring(i, i + 2);
+            i += 2;
+        }
+        else {
+            op = s.charAt(i);
+            ++i;
+        }
         skip_ws(s);
         AbstractExpression rhs = parse_expr(s);
         if (rhs == null) {
             return null;
+        }
+        if (opString != null) {
+            return new BinaryOP(opString, lhs, rhs);
         }
         return new BinaryOP(op, lhs, rhs);
     }
